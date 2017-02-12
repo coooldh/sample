@@ -1,0 +1,10 @@
+{
+    "port" : 3000,
+    "db_ip" : "127.0.0.1",
+    "db_port" : "3306",
+    "db_user_name" : "test",
+    "db_user_pwd" : "test1!",
+    "db_name" : "TEST",
+    "redis_ip" : "127.0.0.1",
+    "redis_port" : 6379
+}
