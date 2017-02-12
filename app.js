@@ -19,11 +19,17 @@ app.set('view engine', 'html');
 app.set('views', VIEW_PATH);
 
 app.use(errorHandler);
-app.use("/", router);
+app.use("/qna", router);
 
+app.use('/', express.static(VIEW_PATH));
 app.use('/css', express.static(VIEW_PATH + '/css'));
 app.use('/js', express.static(VIEW_PATH + '/js'));
+// app.use('/js/vendor', express.static(VIEW_PATH + '/js/vendor'));
 app.use('/fonts', express.static(VIEW_PATH + '/fonts'));
+
+app.get('*', function(req, res) {
+  res.status(200).sendFile(VIEW_PATH + "/index.html");
+});
 
 server.start(app);
 
