@@ -9,6 +9,7 @@ var app = express();
 var server = require(__dirname + "/bin/server");
 var ejs = require('ejs-mate');
 var router = require(ROUTE_PATH + "/router.js");
+var service = require(SERVICE_PATH + "/service");
 
 app.use(methodOverride());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +27,13 @@ app.use('/css', express.static(VIEW_PATH + '/css'));
 app.use('/js', express.static(VIEW_PATH + '/js'));
 // app.use('/js/vendor', express.static(VIEW_PATH + '/js/vendor'));
 app.use('/fonts', express.static(VIEW_PATH + '/fonts'));
+
+app.get("/qna.csv", function(req, res) {
+     service.exportCsv(function(code, result){
+        logger.debug("result : " + result);
+        res.send(result);
+    });
+});
 
 app.get('*', function(req, res) {
   res.status(200).sendFile(VIEW_PATH + "/index.html");

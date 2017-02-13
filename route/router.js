@@ -49,11 +49,4 @@ router.post("/:id/export", function(req, res) {
     });
 });
 
-router.get("/qna.csv", function(req, res) {
-     service.exportCsv(function(code, result){
-        logger.debug("result : " + result);
-        res.send(result);
-    });
-});
-
 module.exports = router;

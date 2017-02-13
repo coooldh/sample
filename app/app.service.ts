@@ -16,10 +16,11 @@ export class LawService {
 
   constructor (private http: Http) {}
 
-  getList (offset:string): Observable<Article[]> {
+  getList (offset:string, limit:string): Observable<Article[]> {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set("offset", offset);
+    params.set("limit", limit);
 
     return this.http.get(this.listUrl, {search : params})
                     .map(this.extractData)

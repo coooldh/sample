@@ -108,10 +108,10 @@ function postQuestion(input, cb) {
                         else {
                             article.answers = result;
 
-                            var cacheKey = "LIST:0_16";
-                            redis.del(cacheKey);
-
-                            w_cb(null, article);
+                            var cacheKey = "LIST*";
+                            delWildcard(cacheKey, function() {
+                                w_cb(null, article);
+                            });
                         }
                     });
                 }
@@ -494,10 +494,12 @@ function modifyQuestion(id, input, cb) {
                         else {
                             article.answers = result;
 
-                            var cacheKey = "LIST:0_16";
-                            redis.del(cacheKey);
-
-                            w_cb(null, article);
+                            var cacheKey = "LIST*";
+                            delWildcard(cacheKey, function() {
+                                cacheKey = "ARTICLE:" + article.id;
+                                redis.del(cacheKey);
+                                w_cb(null, article);
+                            });
                         }
                     });
                 }
@@ -570,10 +572,12 @@ function deleteQuestion(id, cb) {
                             w_cb(RES_E500);
                         }
                         else {
-                            var cacheKey = "LIST:0_16";
-                            redis.del(cacheKey);
-
-                            w_cb(null);
+                            var cacheKey = "LIST*";
+                            delWildcard(cacheKey, function() {
+                                cacheKey = "ARTICLE:" + id;
+                                redis.del(cacheKey);
+                                w_cb(null);
+                            });
                         }
                     });
                 }
@@ -733,6 +737,17 @@ function exportCsv(cb) {
         else {
             cb(RES_204, result);
         }
+    });
+}
+
+function delWildcard(key, callback) {
+
+    var async = require('async');
+
+    redis.keys(key, function(err, rows) {
+        async.each(rows, function(row, callbackDelete) {
+            redis.del(row, callbackDelete)
+        }, callback)
     });
 }
 
