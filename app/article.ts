@@ -8,4 +8,8 @@ export class Article {
         public updatedAt: string,
         public answers: Lawyer[]
     ) {}
+
+    public setAnswers(answers : Lawyer[]) {
+        this.answers = answers;
+    }
 }

@@ -1,1 +1,28 @@
-<div class="panel">detail</div>
+<div class="container">
+    <div class="content-title">
+        질문과 답변을 작성해 주세요.
+    </div>
+
+    <div class="composer-body">
+        <div class="composer-title">
+            <input type="text" placeholder="질문을 작성해 주세요." (keyup)="onTitle($event)" />
+        </div>
+        <div class="composer-content">
+            <textarea placeholder="내용을 작성해 주세요" (keyup)="onBody($event)"></textarea>
+        </div>
+    </div>
+</div>
+
+
+<div id="footer">
+    <div class="answer-body">
+        <div class="answer-title">
+            <input type="text" placeholder="변호사 이름을 입력해 주세요." (keyup)="onAnswerTitle($event)"/>
+        </div>
+        <div class="answer-content">
+            <textarea placeholder="답변을 작성해 주세요" (keyup)="onAnswerBody($event)"></textarea>
+        </div>
+        <button type="button" class="btn-more-answer">+ 답변 추가하기</button>
+        <button type="button" class="btn-write-answer " (click)="post()">글 작성하기</button>
+    </div>
+</div>

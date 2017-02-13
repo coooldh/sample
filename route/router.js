@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 var service = require(SERVICE_PATH + "/service");
 
-// router.get("/", function(req, res) {
-//     res.render("index");
-// });
 router.post("/", function(req, res) {
     service.postQuestion(req.body, function(code, result){
         logger.debug("code : " + code);
-        res.json(result);
+
+        var response = new Object();
+        response.code = code;
+        response.result = result;
+        res.json(response);
     });
 });
 

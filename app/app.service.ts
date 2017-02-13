@@ -8,11 +8,13 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 import { Article } from './article';
+import { ResultSet } from './resultSet';
 
 @Injectable()
 export class LawService {
 
   private listUrl = '/qna';
+  private qnaUrl = '/qna';
 
   constructor (private http: Http) {}
 
@@ -23,6 +25,15 @@ export class LawService {
     params.set("limit", limit);
 
     return this.http.get(this.listUrl, {search : params})
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  postQna (article: Article): Observable<ResultSet> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify(article);
+    return this.http.post(this.qnaUrl, body, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   }

@@ -7,12 +7,12 @@ import { HttpModule, JsonpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ListComponent } from './app.list';
 import { DetailComponent } from './app.detail';
+import { PageNotFoundComponent } from './app.notfound';
 
 const appRoutes: Routes = [
-  { path: 'detail', component: DetailComponent },
+  { path: 'compose', component: DetailComponent },
   { path: '', component: ListComponent },
-  // { path: '',   redirectTo: '/list', pathMatch: 'full' }
-  // { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -26,7 +26,8 @@ const appRoutes: Routes = [
   declarations: [
     ListComponent,
     DetailComponent,
-    AppComponent
+    AppComponent,
+    PageNotFoundComponent
   ],
   bootstrap: [ AppComponent]
 })
